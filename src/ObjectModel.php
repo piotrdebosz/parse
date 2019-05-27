@@ -38,7 +38,7 @@ abstract class ObjectModel implements Arrayable, Jsonable, JsonSerializable
      *
      * @var bool
      */
-    protected static $defaultUseMasterKey = false;
+    protected static $defaultUseMasterKey = true;
 
     protected $parseObject;
 
