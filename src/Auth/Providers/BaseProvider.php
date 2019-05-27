@@ -5,6 +5,7 @@ namespace Parziphal\Parse\Auth\Providers;
 use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Parse\ParseException;
+use Illuminate\Support\Facades\Log;
 
 abstract class BaseProvider implements UserProvider
 {
@@ -65,9 +66,12 @@ abstract class BaseProvider implements UserProvider
         $username = $this->getUsernameFromCredentials($credentials);
         $userClass = get_class($user);
 
+        Log::info('Validate password for: '.$username.' credentials: '.$credentials['password']);
+
         try {
             $userClass::logIn($username, $credentials['password']);
         } catch (ParseException $e) {
+            Log::info('Validate password, exception: '.$e);
             return false;
         }
 
